@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31019.35
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NitecoTest.BackendApi", "src\NitecoTest.BackendApi\NitecoTest.BackendApi.csproj", "{0E1B25CC-5CAE-4F21-9847-563280A15358}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NitecoTest.ViewModels", "src\NitecoTest.ViewModels\NitecoTest.ViewModels.csproj", "{858350FE-28FE-4472-811F-446C547D79A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NitecoTest.WebPortal", "src\NitecoTest.WebPortal\NitecoTest.WebPortal.csproj", "{B136AFA0-0DA4-4023-A6A1-1EC3886E14BA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E75DDDA9-7784-4E67-8C56-0D87D35ED9C4}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0E1B25CC-5CAE-4F21-9847-563280A15358}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E1B25CC-5CAE-4F21-9847-563280A15358}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E1B25CC-5CAE-4F21-9847-563280A15358}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E1B25CC-5CAE-4F21-9847-563280A15358}.Release|Any CPU.Build.0 = Release|Any CPU
+		{858350FE-28FE-4472-811F-446C547D79A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{858350FE-28FE-4472-811F-446C547D79A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{858350FE-28FE-4472-811F-446C547D79A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{858350FE-28FE-4472-811F-446C547D79A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B136AFA0-0DA4-4023-A6A1-1EC3886E14BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B136AFA0-0DA4-4023-A6A1-1EC3886E14BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B136AFA0-0DA4-4023-A6A1-1EC3886E14BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B136AFA0-0DA4-4023-A6A1-1EC3886E14BA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BCDE64FA-0EAE-400E-B9A0-D963F332BE28}
+	EndGlobalSection
+EndGlobal
