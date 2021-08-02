@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using NitecoTest.BackendApi.Data;
 using NitecoTest.BackendApi.Helpers;
 using NitecoTest.BackendApi.Services.Interfaces;
+using NitecoTest.ViewModels;
 using NitecoTest.ViewModels.Contents;
 
 namespace NitecoTest.BackendApi.Services.Functions
@@ -29,7 +30,7 @@ namespace NitecoTest.BackendApi.Services.Functions
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        public async Task<List<OrdersVm>> GetOrdersPaging(string filter, int pageIndex, int pageSize)
+        public async Task<Pagination<OrdersVm>> GetOrdersPaging(string filter, int pageIndex, int pageSize)
         {
             var query = _context.Orders.AsQueryable();
             if (!string.IsNullOrEmpty(filter))
@@ -46,7 +47,14 @@ namespace NitecoTest.BackendApi.Services.Functions
                     OrderDate = o.OrderDate.ToString("dd/MM/yyyy", CultureInfo.CurrentCulture),
                     Amount = o.Amount
                 }).ToListAsync();
-            return items;
+            var pagination = new Pagination<OrdersVm>
+            {
+                Items = items,
+                PageSize = pageSize,
+                PageIndex = pageIndex,
+                TotalRecords = totalRecords,
+            };
+            return pagination;
         }
     }
 }

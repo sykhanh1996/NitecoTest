@@ -11,7 +11,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using NitecoTest.BackendApi.Data;
 using NitecoTest.BackendApi.Extensions;
 using NitecoTest.BackendApi.Services.Functions;
@@ -33,7 +35,7 @@ namespace NitecoTest.BackendApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddHttpClient();
             services.AddControllers();
             //1. Setup entity framework
             services.AddDbContextPool<ApplicationDbContext>(options =>
@@ -75,7 +77,31 @@ namespace NitecoTest.BackendApi
                     }
                 });
             });
+            string issuer = Configuration.GetValue<string>("Tokens:Issuer");
+            string signingKey = Configuration.GetValue<string>("Tokens:Key");
+            byte[] signingKeyBytes = System.Text.Encoding.UTF8.GetBytes(signingKey);
 
+            services.AddAuthentication(opt =>
+                {
+                    opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(options =>
+                {
+                    options.RequireHttpsMetadata = false;
+                    options.SaveToken = true;
+                    options.TokenValidationParameters = new TokenValidationParameters()
+                    {
+                        ValidateIssuer = true,
+                        ValidIssuer = issuer,
+                        ValidateAudience = true,
+                        ValidAudience = issuer,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ClockSkew = System.TimeSpan.Zero,
+                        IssuerSigningKey = new SymmetricSecurityKey(signingKeyBytes)
+                    };
+                });
             services.Configure<ApiBehaviorOptions>(options =>
             {
                 options.SuppressModelStateInvalidFilter = true;
@@ -94,6 +120,7 @@ namespace NitecoTest.BackendApi
             //    .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<RegisterValidator>());
 
             services.AddTransient<IOrderServices, OrderServices>();
+            services.AddTransient<ICustomerServices, CustomerServices>();
             services.AddTransient<NitecoTestDBInitializer>();
 
         }

@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewData["Title"] = "Login";
+}
+@section Styles{
+    <link rel="stylesheet" type="text/css" href="/scss/Login/Index.min.css" />
+}
+@section Scripts{
+    <script src="~/js/controllers/loginController.js" asp-append-version="true"></script>
+    <script>
+        var controller = new loginController();
+        controller.initialize();
+    </script>
+}
+<div>
+    <form action="/Login/Index" method="POST" id="login_form">
+        <div id="message-result" class="text-danger mb-2"></div>
+        <div class="mb-3">
+            <label for="customerName" class="form-label">Customer Name:</label>
+            <input type="text" class="form-control" id="customerName" placeholder="Customer Name">
+        </div>
+        <div class="buttonform">
+            <button class="btn btn-primary" id="btn-login" type="submit">Submit</button>
+            <img src="/image/loading.gif" alt="Loading..." id="contact-loader">
+        </div>
+    </form>
+</div>

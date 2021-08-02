@@ -137,6 +137,7 @@ namespace NitecoTest.BackendApi.Data
                             OrderDate = DateTime.Now
                         },
                     });
+                    await _context.SaveChangesAsync();
                 }
             }
         }

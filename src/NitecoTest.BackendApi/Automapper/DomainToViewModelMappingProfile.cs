@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using NitecoTest.BackendApi.Data.Entities;
+using NitecoTest.ViewModels.Contents;
 
 namespace NitecoTest.BackendApi.Automapper
 {
@@ -11,7 +12,7 @@ namespace NitecoTest.BackendApi.Automapper
     {
         public DomainToViewModelMappingProfile()
         {
-            CreateMap<Order, PostVm>().MaxDepth(2);
+            CreateMap<Customer, CustomerVm>().MaxDepth(2);
         }
     }
 }

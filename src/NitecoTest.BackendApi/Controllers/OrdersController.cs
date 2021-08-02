@@ -7,27 +7,24 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Extensions.Configuration;
 using NitecoTest.BackendApi.Data;
+using NitecoTest.BackendApi.Services.Interfaces;
 
 namespace NitecoTest.BackendApi.Controllers
 {
     public class OrdersController : BaseController
     {
-        private readonly ApplicationDbContext _context;
-        private readonly IConfiguration _configuration;
-        private readonly IMapper _mapper;
-        public OrdersController(ApplicationDbContext context,
-            IConfiguration configuration,
-            IMapper mapper)
+        private readonly IOrderServices _orderServices;
+        public OrdersController(
+            IOrderServices orderServices)
         {
-            _context = context;
-            _configuration = configuration;
-            _mapper = mapper;
+            _orderServices = orderServices;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetOrder()
+        [HttpGet("filter")]
+        public async Task<IActionResult> GetOrder(string filter, int pageIndex = 1, int pageSize = 1)
         {
-            return Ok();
+            var order = await _orderServices.GetOrdersPaging(filter, pageIndex, pageSize);
+            return Ok(order);
         }
     }
 }

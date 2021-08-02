@@ -8,6 +8,6 @@ namespace NitecoTest.BackendApi.Services.Interfaces
 {
     public interface ICustomerServices
     {
-        Task<ApiResponse> Authorization(string userName);
+        Task<ApiResponse> Authenticate(string userName);
     }
 }
