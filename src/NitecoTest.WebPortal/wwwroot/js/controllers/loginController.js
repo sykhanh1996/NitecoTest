@@ -41,7 +41,6 @@
                                     $('<span class="text-danger d-block mt-2 kt-error-btm">' +
                                         errMsgs[field] +
                                         '</span>').insertAfter("#customerName");
-
                                     break;
                                 default:
                                     $('#message-result').append(errMsgs[field] + '<br>');

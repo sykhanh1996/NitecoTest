@@ -6,21 +6,38 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Configuration;
+using NitecoTest.WebPortal.Services.Interfaces;
 
 namespace NitecoTest.WebPortal.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IConfiguration _configuration;
+        private readonly IOrderApiClient _orderApiClient;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger,
+            IConfiguration configuration,
+            IOrderApiClient orderApiClient)
         {
             _logger = logger;
+            _configuration = configuration;
+            _orderApiClient = orderApiClient;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index(string filter,int page = 1)
         {
-            return View();
+            var pageSize = int.Parse(_configuration["PageSize"]);
+            pageSize = 1;
+            var orders = await _orderApiClient.GetAllOrderPaging(filter, page, pageSize);
+            var viewModel = new OrderViewModel()
+            {
+                Data = orders
+            };
+            return View(viewModel);
         }
 
         public IActionResult Privacy()
