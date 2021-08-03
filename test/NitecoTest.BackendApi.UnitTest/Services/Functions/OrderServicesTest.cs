@@ -91,10 +91,33 @@ namespace NitecoTest.BackendApi.UnitTest.Services.Functions
                 }
               
             });
+           
+
             await _context.SaveChangesAsync();
             var controller = new OrderServices(_context, _mapper);
             var result = await controller.GetAllProductVm();
             Assert.True(result.Any());
+        }
+
+        [Fact]
+        public async Task GetOrdersPaging_GetInstance_Success()
+        {
+            _context.Orders.AddRange(new List<Order>
+            {
+                new Order
+                {
+                  CustomerId = 1,
+                  ProductId = 1,
+                  Amount = 1,
+                  OrderDate = DateTime.Now
+                }
+            });
+            await _context.SaveChangesAsync();
+
+            var controller = new OrderServices(_context, _mapper);
+            var result = await controller.GetOrdersPaging(null,1,1);
+            Assert.Equal(1,result.TotalRecords);
+            Assert.Equal(1,result.PageCount);
         }
     }
 }
