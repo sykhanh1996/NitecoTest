@@ -20,14 +20,6 @@ namespace NitecoTest.BackendApi.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-
-            #region Configuration
-
-            builder.Entity<Order>()
-                .HasKey(c => new { c.CustomerId, c.ProductId });
-
-            #endregion Identity Configuration
-
      
         }
     }

@@ -10,5 +10,7 @@ namespace NitecoTest.WebPortal.Models
     public class OrderViewModel
     {
         public Pagination<OrdersVm> Data { set; get; }
+        public List<CustomerVm> lstCustomer { set; get; }
+        public List<ProductVm> lstProduct { set; get; }
     }
 }

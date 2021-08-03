@@ -43,7 +43,7 @@ namespace NitecoTest.WebPortal
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
                 {
-                    options.LoginPath = "/Login/Index";
+                    options.LoginPath = "/Login";
                     options.AccessDeniedPath = "/Home/Forbidden/";
                 });
             services.AddSession(options =>

@@ -11,5 +11,9 @@ namespace NitecoTest.BackendApi.Services.Interfaces
     public interface IOrderServices
     {
         Task<Pagination<OrdersVm>> GetOrdersPaging(string filter, int pageIndex, int pageSize);
+        Task<List<CustomerVm>> GetAllCustomerVm();
+        Task<List<ProductVm>> GetAllProductVm();
+        Task<bool> CreateOrder(OrderCreateRequest orderCreateRequest);
+        Task<bool> CheckOrderQuantity(OrderCreateRequest orderCreateRequest);
     }
 }

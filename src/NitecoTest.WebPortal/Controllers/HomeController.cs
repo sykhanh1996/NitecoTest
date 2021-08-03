@@ -8,12 +8,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Configuration;
+using NitecoTest.ViewModels.Contents;
 using NitecoTest.WebPortal.Services.Interfaces;
 
 namespace NitecoTest.WebPortal.Controllers
 {
-    [Authorize]
-    public class HomeController : Controller
+   
+    public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IConfiguration _configuration;
@@ -28,16 +29,33 @@ namespace NitecoTest.WebPortal.Controllers
             _orderApiClient = orderApiClient;
         }
 
-        public async Task<IActionResult> Index(string filter,int page = 1)
+        public async Task<IActionResult> Index(string filter, int page = 1)
         {
             var pageSize = int.Parse(_configuration["PageSize"]);
-            pageSize = 1;
+            pageSize = 5;
             var orders = await _orderApiClient.GetAllOrderPaging(filter, page, pageSize);
+            var customers = await _orderApiClient.GetAllCustomer();
+            var products = await _orderApiClient.GetAllProduct();
             var viewModel = new OrderViewModel()
             {
-                Data = orders
+                Data = orders,
+                lstCustomer = customers,
+                lstProduct = products
             };
             return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateNewOrder(OrderCreateRequest orderVm)
+        {
+            var checkQuantity = await _orderApiClient.CheckProductQuantity(orderVm);
+            if (checkQuantity.Equals(false))
+                return NotFound();
+            
+            var orders = await _orderApiClient.AddOrderRequest(orderVm);
+            if (orders)
+                return Ok();
+            return BadRequest();
         }
 
         public IActionResult Privacy()

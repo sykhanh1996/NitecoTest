@@ -3,12 +3,21 @@
 @{
     ViewData["Title"] = "Home Page";
 }
-
+@section Styles{
+    <link rel="stylesheet" type="text/css" href="/scss/Home/Index.min.css" />
+}
+@section Scripts{
+    <script src="~/js/controllers/homeController.js" asp-append-version="true"></script>
+    <script>
+        var controller = new homeController();
+        controller.initialize();
+    </script>
+}
 <div class="text-center">
     <div class="row justify-content-center">
         <span class="mr-3">Enter category to search</span>
-        <form class="form-inline my-2 my-lg-0 ">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <form class="form-inline my-2 my-lg-0" id="search_form">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="input-search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
     </div>
@@ -24,27 +33,82 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>23</td>
-            <td>23</td>
-        </tr>
-        <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>1t</td>
-            <td>1t</td>
-        </tr>
-        <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>twitter</td>
-            <td>twitter</td>
-        </tr>
+        @foreach (var orderVm in Model.Data.Items)
+        {
+            <tr>
+                <th scope="row">@orderVm.ProductName</th>
+                <td>@orderVm.CategoryName</td>
+                <td>@orderVm.CustomerName</td>
+                <td>@orderVm.OrderDate</td>
+                <td>@orderVm.Amount</td>
+            </tr>
+        }
     </tbody>
 </table>
 @(await Component.InvokeAsync("Pager", Model.Data))
+<div class="d-flex flex-row-reverse">
+    <div class="mt-2 text-primary create-Order" id="createOrder">Create new Order</div>
+</div>
+
+
+<button type="button" id="btnmodal" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="fat" style="visibility: hidden;">Open modal for Order</button>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Create New Order</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="frmAddNewOrder">
+                    <div class="form-group">
+                        <label for="orderName" class="col-form-label">Order Name:</label>
+                        <input type="text" class="form-control" id="orderName" value="New Order" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="product" class="col-form-label">Product:</label>
+                        <div class="input-group mb-3">
+                            <select class="custom-select" id="product">
+                                <option selected>Choose...</option>
+                                @foreach (var product in Model.lstProduct)
+                                {
+                                    <option value="@product.Id">@product.Name</option>
+                                }
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="customer" class="col-form-label">Customer:</label>
+                        <div class="input-group mb-3">
+                            <select class="custom-select" id="customer">
+                                <option selected>Choose...</option>
+                                @foreach (var customer in Model.lstCustomer)
+                                {
+                                    <option value="@customer.Id">@customer.Name</option>
+                                }
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="orderDate" class="col-form-label">Order Date:</label>
+
+                        <input type="text" class="form-control" id="datepicker">
+                    </div>
+                    <div class="form-group">
+                        <label for="amount" class="col-form-label">Amount:</label>
+                        <input type="number" class="form-control" id="amount">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnModalCancel">Close</button>
+                <button type="button" class="btn btn-primary" id="btnModalCreateOrder">Create Order</button>
+            </div>
+        </div>
+    </div>
+</div>

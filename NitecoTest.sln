@@ -3,16 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31019.35
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NitecoTest.BackendApi", "src\NitecoTest.BackendApi\NitecoTest.BackendApi.csproj", "{0E1B25CC-5CAE-4F21-9847-563280A15358}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NitecoTest.BackendApi", "src\NitecoTest.BackendApi\NitecoTest.BackendApi.csproj", "{0E1B25CC-5CAE-4F21-9847-563280A15358}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NitecoTest.ViewModels", "src\NitecoTest.ViewModels\NitecoTest.ViewModels.csproj", "{858350FE-28FE-4472-811F-446C547D79A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NitecoTest.ViewModels", "src\NitecoTest.ViewModels\NitecoTest.ViewModels.csproj", "{858350FE-28FE-4472-811F-446C547D79A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NitecoTest.WebPortal", "src\NitecoTest.WebPortal\NitecoTest.WebPortal.csproj", "{B136AFA0-0DA4-4023-A6A1-1EC3886E14BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NitecoTest.WebPortal", "src\NitecoTest.WebPortal\NitecoTest.WebPortal.csproj", "{B136AFA0-0DA4-4023-A6A1-1EC3886E14BA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E75DDDA9-7784-4E67-8C56-0D87D35ED9C4}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{D7AF95ED-E243-47FA-BF88-28A42D0FC85A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

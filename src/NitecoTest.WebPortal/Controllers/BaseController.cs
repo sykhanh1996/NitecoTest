@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace NitecoTest.WebPortal.Controllers
 {
+
     public class BaseController : Controller
     {
         public override void OnActionExecuting(ActionExecutingContext context)
@@ -15,7 +16,7 @@ namespace NitecoTest.WebPortal.Controllers
             var sessions = context.HttpContext.Session.GetString("Token");
             if (sessions == null)
             {
-                context.Result = new RedirectToActionResult("Index", "Home", null);
+                context.Result = new RedirectToActionResult("Index", "Login", null);
             }
             base.OnActionExecuting(context);
         }

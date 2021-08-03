@@ -13,6 +13,7 @@ namespace NitecoTest.BackendApi.Automapper
         public DomainToViewModelMappingProfile()
         {
             CreateMap<Customer, CustomerVm>().MaxDepth(2);
+            CreateMap<Product, ProductVm>().MaxDepth(2);
         }
     }
 }

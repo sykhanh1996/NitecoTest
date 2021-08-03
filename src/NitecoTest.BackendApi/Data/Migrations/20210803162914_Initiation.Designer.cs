@@ -10,7 +10,7 @@ using NitecoTest.BackendApi.Data;
 namespace NitecoTest.BackendApi.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210802082613_Initiation")]
+    [Migration("20210803162914_Initiation")]
     partial class Initiation
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -63,19 +63,26 @@ namespace NitecoTest.BackendApi.Data.Migrations
 
             modelBuilder.Entity("NitecoTest.BackendApi.Data.Entities.Order", b =>
                 {
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("Amount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("CustomerId", "ProductId");
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
 
                     b.HasIndex("ProductId");
 
@@ -115,17 +122,21 @@ namespace NitecoTest.BackendApi.Data.Migrations
 
             modelBuilder.Entity("NitecoTest.BackendApi.Data.Entities.Order", b =>
                 {
-                    b.HasOne("NitecoTest.BackendApi.Data.Entities.Customer", null)
+                    b.HasOne("NitecoTest.BackendApi.Data.Entities.Customer", "Customer")
                         .WithMany("Orders")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("NitecoTest.BackendApi.Data.Entities.Product", null)
+                    b.HasOne("NitecoTest.BackendApi.Data.Entities.Product", "Product")
                         .WithMany("Orders")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("NitecoTest.BackendApi.Data.Entities.Product", b =>

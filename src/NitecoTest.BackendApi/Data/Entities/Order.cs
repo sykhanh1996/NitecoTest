@@ -9,14 +9,19 @@ using NitecoTest.BackendApi.Data.Interfaces;
 namespace NitecoTest.BackendApi.Data.Entities
 {
     [Table("Order")]
-    public class Order 
+    public class Order :IKeyTable<int>
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
+        public int Id { get; set; }
         public int CustomerId { get; set; }
         public int ProductId { get; set; }
         public int Amount { get; set; }
         public DateTime OrderDate { get; set; }
-
+        [ForeignKey("ProductId")]
         public virtual Product Product { set; get; }
+        [ForeignKey("CustomerId")]
         public virtual Customer Customer { set; get; }
+
     }
 }
