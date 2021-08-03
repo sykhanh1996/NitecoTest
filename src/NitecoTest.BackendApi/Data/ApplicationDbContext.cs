@@ -20,7 +20,15 @@ namespace NitecoTest.BackendApi.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-     
+
+            builder.Entity<Order>().HasOne(o => o.Product)
+                .WithMany(x => x.Orders).Metadata.DeleteBehavior = DeleteBehavior.Restrict;
+
+            builder.Entity<Order>().HasOne(o => o.Customer)
+                .WithMany(x => x.Orders).Metadata.DeleteBehavior = DeleteBehavior.Restrict;
+
+            builder.Entity<Product>().HasOne(p => p.Category)
+                .WithMany(x => x.Products).Metadata.DeleteBehavior = DeleteBehavior.Restrict;
         }
     }
 }

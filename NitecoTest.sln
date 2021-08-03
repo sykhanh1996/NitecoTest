@@ -16,6 +16,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{D7AF95ED-E243-47FA-BF88-28A42D0FC85A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NitecoTest.BackendApi.UnitTest", "test\NitecoTest.BackendApi.UnitTest\NitecoTest.BackendApi.UnitTest.csproj", "{2B67E202-E763-49B0-9C07-D95BC9A8B820}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,9 +36,16 @@ Global
 		{B136AFA0-0DA4-4023-A6A1-1EC3886E14BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B136AFA0-0DA4-4023-A6A1-1EC3886E14BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B136AFA0-0DA4-4023-A6A1-1EC3886E14BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B67E202-E763-49B0-9C07-D95BC9A8B820}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B67E202-E763-49B0-9C07-D95BC9A8B820}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B67E202-E763-49B0-9C07-D95BC9A8B820}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B67E202-E763-49B0-9C07-D95BC9A8B820}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2B67E202-E763-49B0-9C07-D95BC9A8B820} = {D7AF95ED-E243-47FA-BF88-28A42D0FC85A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BCDE64FA-0EAE-400E-B9A0-D963F332BE28}

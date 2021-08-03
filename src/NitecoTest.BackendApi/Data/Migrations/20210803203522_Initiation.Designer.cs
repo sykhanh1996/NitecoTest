@@ -10,7 +10,7 @@ using NitecoTest.BackendApi.Data;
 namespace NitecoTest.BackendApi.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210803162914_Initiation")]
+    [Migration("20210803203522_Initiation")]
     partial class Initiation
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -125,13 +125,13 @@ namespace NitecoTest.BackendApi.Data.Migrations
                     b.HasOne("NitecoTest.BackendApi.Data.Entities.Customer", "Customer")
                         .WithMany("Orders")
                         .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("NitecoTest.BackendApi.Data.Entities.Product", "Product")
                         .WithMany("Orders")
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Customer");
@@ -144,7 +144,7 @@ namespace NitecoTest.BackendApi.Data.Migrations
                     b.HasOne("NitecoTest.BackendApi.Data.Entities.Category", "Category")
                         .WithMany("Products")
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Category");

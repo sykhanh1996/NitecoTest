@@ -1,0 +1,93 @@
+﻿IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END;
+GO
+
+BEGIN TRANSACTION;
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20210803203522_Initiation')
+BEGIN
+    CREATE TABLE [Category] (
+        [Id] int NOT NULL IDENTITY,
+        [Name] nvarchar(255) NULL,
+        [Description] nvarchar(500) NULL,
+        CONSTRAINT [PK_Category] PRIMARY KEY ([Id])
+    );
+END;
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20210803203522_Initiation')
+BEGIN
+    CREATE TABLE [Customer] (
+        [Id] int NOT NULL IDENTITY,
+        [Name] nvarchar(255) NULL,
+        [Address] nvarchar(500) NULL,
+        CONSTRAINT [PK_Customer] PRIMARY KEY ([Id])
+    );
+END;
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20210803203522_Initiation')
+BEGIN
+    CREATE TABLE [Product] (
+        [Id] int NOT NULL IDENTITY,
+        [Name] nvarchar(255) NULL,
+        [CategoryId] int NOT NULL,
+        [Price] float NOT NULL,
+        [Description] nvarchar(500) NULL,
+        [Quantity] int NOT NULL,
+        CONSTRAINT [PK_Product] PRIMARY KEY ([Id]),
+        CONSTRAINT [FK_Product_Category_CategoryId] FOREIGN KEY ([CategoryId]) REFERENCES [Category] ([Id]) ON DELETE NO ACTION
+    );
+END;
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20210803203522_Initiation')
+BEGIN
+    CREATE TABLE [Order] (
+        [Id] int NOT NULL IDENTITY,
+        [CustomerId] int NOT NULL,
+        [ProductId] int NOT NULL,
+        [Amount] int NOT NULL,
+        [OrderDate] datetime2 NOT NULL,
+        CONSTRAINT [PK_Order] PRIMARY KEY ([Id]),
+        CONSTRAINT [FK_Order_Customer_CustomerId] FOREIGN KEY ([CustomerId]) REFERENCES [Customer] ([Id]) ON DELETE NO ACTION,
+        CONSTRAINT [FK_Order_Product_ProductId] FOREIGN KEY ([ProductId]) REFERENCES [Product] ([Id]) ON DELETE NO ACTION
+    );
+END;
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20210803203522_Initiation')
+BEGIN
+    CREATE INDEX [IX_Order_CustomerId] ON [Order] ([CustomerId]);
+END;
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20210803203522_Initiation')
+BEGIN
+    CREATE INDEX [IX_Order_ProductId] ON [Order] ([ProductId]);
+END;
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20210803203522_Initiation')
+BEGIN
+    CREATE INDEX [IX_Product_CategoryId] ON [Product] ([CategoryId]);
+END;
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20210803203522_Initiation')
+BEGIN
+    INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+    VALUES (N'20210803203522_Initiation', N'5.0.8');
+END;
+GO
+
+COMMIT;
+GO
+

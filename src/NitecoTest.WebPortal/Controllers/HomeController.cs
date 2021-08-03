@@ -32,7 +32,6 @@ namespace NitecoTest.WebPortal.Controllers
         public async Task<IActionResult> Index(string filter, int page = 1)
         {
             var pageSize = int.Parse(_configuration["PageSize"]);
-            pageSize = 5;
             var orders = await _orderApiClient.GetAllOrderPaging(filter, page, pageSize);
             var customers = await _orderApiClient.GetAllCustomer();
             var products = await _orderApiClient.GetAllProduct();

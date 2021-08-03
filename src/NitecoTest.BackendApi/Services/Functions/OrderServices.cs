@@ -19,18 +19,14 @@ namespace NitecoTest.BackendApi.Services.Functions
     public class OrderServices : IOrderServices
     {
         private readonly ApplicationDbContext _context;
-        private readonly IConfiguration _configuration;
-        private readonly ILogger<OrderServices> _logger;
         private readonly IMapper _mapper;
 
-        public OrderServices(ILogger<OrderServices> logger,
+        public OrderServices(
             ApplicationDbContext context,
-            IConfiguration configuration,
             IMapper mapper)
         {
             _context = context;
-            _configuration = configuration;
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+
             _mapper = mapper;
         }
 
@@ -66,15 +62,13 @@ namespace NitecoTest.BackendApi.Services.Functions
 
         public async Task<List<CustomerVm>> GetAllCustomerVm()
         {
-            var customer = _context.Customers.AsQueryable();
-            var customerVm = await _mapper.ProjectTo<CustomerVm>(customer).ToListAsync();
+            var customerVm = await _mapper.ProjectTo<CustomerVm>(_context.Customers).ToListAsync();
             return customerVm;
         }
 
         public async Task<List<ProductVm>> GetAllProductVm()
         {
-            var product = _context.Products.AsQueryable();
-            var productVm = await _mapper.ProjectTo<ProductVm>(product).ToListAsync();
+            var productVm = await _mapper.ProjectTo<ProductVm>(_context.Products).ToListAsync();
             return productVm;
         }
 
@@ -83,7 +77,7 @@ namespace NitecoTest.BackendApi.Services.Functions
             var query = _context.Orders.AsQueryable();
             if (!string.IsNullOrEmpty(filter))
             {
-                query = query.Where(x => x.Product.Name.Contains(filter) || x.Product.Category.Name.Contains(filter) || x.Customer.Name.Contains(filter));
+                query = query.Where(x =>  x.Product.Category.Name.Contains(filter));
             }
             var totalRecords = await query.CountAsync();
             var items = await query.OrderByDescending(x => x.CustomerId).Skip((pageIndex - 1) * pageSize)
